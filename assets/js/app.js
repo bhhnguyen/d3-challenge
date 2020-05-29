@@ -59,21 +59,24 @@ var chartGroup = svg.append("g")
 
     // Step 5: Create Circles
     // ==============================
-    var circlesGroup = chartGroup.selectAll("circle")
-        .data(data)
-        .join("circle")
-        .attr("cx", d => xScale(d.poverty))
+    var circlesGroup = chartGroup.selectAll("circle").data(data).enter()
+
+    circlesGroup.append("circle")
+        .attr("cx", d => xScale(d.poverty) - 0.05)
         .attr("cy", d => yScale(d.healthcare))
-        .attr("r", "10");
+        .attr("r", "10")
+        .attr("class", "stateCircle");
 
 
     circlesGroup.append("text")
-        .text(function(d) {
+        .text(d => {
             return d.abbr;
         })
         .attr("dx", d => xScale(d.poverty))
         .attr("dy", d => yScale(d.healthcare))
         .attr("font-size", 8)
+        .attr("class", "stateText");
+
 
     chartGroup.append("g")
         .attr("transform", `translate(0, ${height})`)
