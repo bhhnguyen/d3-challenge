@@ -28,7 +28,7 @@ var chartGroup = svg.append("g")
 
     // Step 1: Parse d/Cast as numbers
     // ==============================
-    data.forEach(function(d) {
+    data.forEach(d => {
         d.poverty = +d.poverty;
         d.healthcare = +d.healthcare;
     });
@@ -59,8 +59,9 @@ var chartGroup = svg.append("g")
 
     // Step 5: Create Circles
     // ==============================
-    var circlesGroup = chartGroup.selectAll("circle").data(data).enter()
-    circlesGroup.append("circle")
+    var circlesGroup = chartGroup.selectAll("circle")
+        .data(data)
+        .join("circle")
         .attr("cx", d => xScale(d.poverty))
         .attr("cy", d => yScale(d.healthcare))
         .attr("r", "10");
